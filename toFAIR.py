@@ -3,10 +3,11 @@ from rdflib import Namespace, Graph, URIRef, Literal
 from rdflib.namespace import DCTERMS, RDFS, RDF, DC, FOAF
 import urllib
 from hashlib import md5
+import sys
 
-repocontents = open("/Users/dvanbeek/Documents/UMC/FAIR_IC/DACRespositorycontents.txt", 'r')
-studies = open("/Users/dvanbeek/Documents/UMC/FAIR_IC/DACStudies.txt", 'r')
-ICdir = "/Users/dvanbeek/Documents/UMC/FAIR_IC/"
+repocontents = open(sys.argv[1] + "/DACRespositorycontents.txt", 'r')
+studies = open(sys.argv[1] + "/DACStudies.txt", 'r')
+ICdir = sys.argv[1] + "/"
 
 repoGraph = Graph()
 repoGraph.bind("dcterms", DCTERMS)
@@ -24,7 +25,6 @@ repoGraph.bind("OBA", URIRef("http://purl.obolibrary.org/obo/oba/patterns/entity
 oba = Namespace("http://purl.obolibrary.org/obo/oba/patterns/entity_attribute/")
 repoGraph.bind("SWO", URIRef("http://usefulinc.com/ns/doap#"))
 swo = Namespace("http://usefulinc.com/ns/doap#")
-
 
 fairic_uri = "http://datasteward.nl/fair_IC"
 
@@ -84,12 +84,7 @@ for line in studies:
     repoGraph.add((study_uri, enm.title, Literal(line[headerStudy.index("Study Title")])))
     repoGraph.add((study_uri, semscience.SIO_001277, dataset_uri))
 
-
-
-print(headerRepo)
-print(headerStudy)
-
-repoGraph.serialize(destination='/Users/dvanbeek/Documents/UMC/FAIR_IC/FAIR_IC.ttl', format='turtle')
+repoGraph.serialize(destination=sys.argv[1] + '/FAIR_IC.ttl', format='turtle')
 
 repocontents.close()
 studies.close()
