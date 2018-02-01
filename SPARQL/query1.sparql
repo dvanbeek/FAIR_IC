@@ -1,0 +1,10 @@
+#Query to get all Study IDs matched up with the Dataset IDs
+PREFIX OBO: <http://purl.obolibrary.org/obo/>
+PREFIX SIO: <http://semanticscience.org/resource/>
+PREFIX AEO: <http://www.geneontology.org/formats/oboInOwl#>
+SELECT ?studyid ?datasetid
+WHERE{
+  ?study AEO:id ?studyid .
+  ?dataset SIO:SIO_001277 ?study .
+  ?dataset AEO:id ?datasetid .
+        }

@@ -46,6 +46,7 @@ for line in repocontents:
     repoGraph.add((dataset_uri, semscience.SIO_000028, file_uri))
     repoGraph.add((file_uri, RDF.type, URIRef(semscience.SIO_000396)))
     try:
+        #Add support for multiple ICs per file (parents + kids situation for example)
         ic = md5(("IC" + line[headerRepo.index("Informed consent")]).encode()).hexdigest()
         ic_uri = URIRef(fairic_uri + "/rdf/ic/" + ic)
         repoGraph.add((file_uri, obo.ERO_0000460, ic_uri))
@@ -63,7 +64,7 @@ for line in repocontents:
                     repoGraph.add((ic_uri, obo.RO_0002180, Literal(line)))
             ic_file.close()
         except IOError:
-            print("cannot find file")
+            print("Cannot find file")
     except IndexError:
         pass
 
