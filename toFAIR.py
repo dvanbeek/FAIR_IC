@@ -43,6 +43,12 @@ for line in repocontents:
     repoGraph.add((dataset_uri, RDF.type, URIRef(semscience.SIO_000089)))
     repoGraph.add((dataset_uri, anenon.id, Literal(line[headerRepo.index("Dataset ID")])))
     repoGraph.add((dataset_uri, obo.OMIABIS_0000048, Literal(line[headerRepo.index("DAC number")])))
+    repoGraph.add((dataset_uri, enm.title, Literal(line[headerRepo.index("Dataset name")])))
+    repoGraph.add((dataset_uri, enm.description, Literal(line[headerRepo.index("Description")])))
+    repoGraph.add((dataset_uri, obo.NCIT_C25461, Literal(line[headerRepo.index("Internal contactperson")])))
+    repoGraph.add((dataset_uri, obo.RO_0001019, Literal(line[headerRepo.index("Samples")])))
+    repoGraph.add((dataset_uri, anenon.comment, Literal(line[headerRepo.index("Additional info")])))
+    #repoGraph.add((dataset_uri, anenon.comment, Literal(line[headerRepo.index("Informed consent")])))
     repoGraph.add((dataset_uri, semscience.SIO_000028, file_uri))
     repoGraph.add((file_uri, RDF.type, URIRef(semscience.SIO_000396)))
     try:
